@@ -3,7 +3,7 @@ import json, random, string, requests
 
 NGROK_PACK = "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip"
 
-def init_portal(password=None, ngrok_auth=None):
+def init_portal(password=None, ngrok_auth=None, ipy_shell=get_ipython()):
 	assert ngrok_auth is not None, "Get your ngrok auth from https://dashboard.ngrok.com/auth"
 	
 	### Download NGROK and unpack
@@ -16,7 +16,7 @@ def init_portal(password=None, ngrok_auth=None):
 		subprocess.run(cmd, check=True, shell=True)
 
 	### Use connected-notebook's interactive shell to run portal
-	get_ipython().system_raw('/usr/sbin/sshd -D &')
+	ipy_shell.system_raw('/usr/sbin/sshd -D &')
 	### Get password and setup environment
 	if password is None:
 		password = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
@@ -33,7 +33,7 @@ def init_portal(password=None, ngrok_auth=None):
 		subprocess.run(cmd, check=True, shell=True)
 
 	### Build up connection
-	get_ipython().system_raw("./ngrok authtoken {} && ./ngrok tcp 22 &".format(ngrok_auth))
+	ipy_shell.system_raw("./ngrok authtoken {} && ./ngrok tcp 22 &".format(ngrok_auth))
 	
 
 	resp = requests.get("http://localhost:4040/api/tunnels")
