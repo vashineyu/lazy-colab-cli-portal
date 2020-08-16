@@ -1,5 +1,6 @@
 import os, subprocess
 import json, random, string, requests
+import time
 
 NGROK_PACK = "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip"
 
@@ -34,7 +35,7 @@ def init_portal(ipy_shell, password=None, ngrok_auth=None):
 
 	### Build up connection
 	ipy_shell.system_raw("./ngrok authtoken {} && ./ngrok tcp 22 &".format(ngrok_auth))
-	
+	time.sleep(3.0) # wait it activate	
 
 	resp = requests.get("http://localhost:4040/api/tunnels")
 	data = json.loads(resp.content.decode())
