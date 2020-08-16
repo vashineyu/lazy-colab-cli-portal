@@ -20,7 +20,7 @@ def init_portal(password=None, ngrok_auth=None):
 		password = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
 
 	cmds = [
-		"root:{} | chpasswd".format(password),
+		"echo root:{} | chpasswd".format(password),
 		"mkdir -p /var/run/sshd",
 		"echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config",
 		"echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config",
