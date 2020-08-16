@@ -15,6 +15,8 @@ def init_portal(password=None, ngrok_auth=None):
 	for cmd in cmds:
 		subprocess.run(cmd, check=True, shell=True)
 
+	### Use connected-notebook's interactive shell to run portal
+	get_ipython().system_raw('/usr/sbin/sshd -D &')
 	### Get password and setup environment
 	if password is None:
 		password = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
@@ -32,7 +34,7 @@ def init_portal(password=None, ngrok_auth=None):
 
 	### Build up connection
 	get_ipython().system_raw("./ngrok authtoken {} && ./ngrok tcp 22 &".format(ngrok_auth))
-	get_ipython().system_raw('/usr/sbin/sshd -D &')
+	
 
 	resp = requests.get("http://localhost:4040/api/tunnels")
 	data = json.loads(resp.content.decode())
