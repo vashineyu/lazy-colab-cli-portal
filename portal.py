@@ -3,7 +3,7 @@ import json, random, string, requests
 
 NGROK_PACK = "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip"
 
-def init_portal(password=None, ngrok_auth=None, ipy_shell=get_ipython()):
+def init_portal(ipy_shell, password=None, ngrok_auth=None):
 	assert ngrok_auth is not None, "Get your ngrok auth from https://dashboard.ngrok.com/auth"
 	
 	### Download NGROK and unpack
