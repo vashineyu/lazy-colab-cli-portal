@@ -19,4 +19,6 @@ password = [YOUR_PASSWORD]
 
 portal = Portal(ipy_shell=get_ipython(), password=password, ngrok_auth=authtoken)
 ```
-Then, you can execute ssh .... from your local terminal to the environment.
+Then, you can execute ssh .... from your local terminal to the environment.  
+Follow the [connect_colab.ipynb](./connect_colab.ipynb) to see how to connect to colab.
+
