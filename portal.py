@@ -21,6 +21,7 @@ class Portal:
 		cmds = [
 			"wget -q -c -nc {}".format(NGROK_PACK),
 			"unzip -qq -n ngrok-stable-linux-amd64.zip",
+			"apt update".
 			"apt install -qq -o=Dpkg::Use-Pty=0 openssh-server pwgen > /dev/null"
 		]
 		for cmd in cmds:
